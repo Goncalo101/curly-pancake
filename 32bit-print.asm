@@ -8,7 +8,7 @@ print_string_pm:
 	mov edi, VIDEO_MEMORY ; moving video_memory to edi allows the usage of special instructions
 
 print_string_pm_loop:
-	lodsb ; load a byte from esi
+	lodsb ; load a byte from esi into al
 	mov ah, WHITE_ON_BLACK
 
 	cmp al, 0
