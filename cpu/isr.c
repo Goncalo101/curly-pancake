@@ -1,7 +1,7 @@
 #include "isr.h"
 #include "idt.h"
 #include "../drivers/screen.h"
-#include "../kernel/util.h"
+#include "../kernel/utils.h"
 
 /* Can't do this with a loop because we need the address
  * of the function names */
