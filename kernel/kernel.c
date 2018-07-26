@@ -4,7 +4,7 @@
 #include "../libc/mem.h"
 #include "../libc/string.h"
 
-void main() {
+void kernel_main() {
   // // clear_screen();
   // // kprint_at("X", 1, 6);
   // // kprint_at("This text spans multiple lines", 75, 10);
@@ -17,7 +17,6 @@ void main() {
   // // __asm__ __volatile__("int $31");
   // // __asm__ __volatile__("int $3");
   //
-  // asm volatile("sti");
   // init_timer(50);
   //
   // /* Comment out the timer IRQ handler to read
@@ -35,12 +34,12 @@ void user_input(char *input) {
   if (strcmp(input, "END") == 0) {
     kprint("Stopping the CPU. Bye!\n");
     asm volatile("hlt");
-    
+
   } else if (strcmp(input, "PAGE") == 0) {
 
     /* Code to test kmalloc */
-    u32 phys_addr;
-    u32 page = kmalloc(1000, 1, &phys_addr);
+    uint32_t phys_addr;
+    uint32_t page = kmalloc(1000, 1, &phys_addr);
     char page_str[16] = "";
     hex_to_ascii(page, page_str);
     char phys_str[16] = "";
@@ -50,7 +49,6 @@ void user_input(char *input) {
     kprint(", physical address: ");
     kprint(phys_str);
     kprint("\n");
-
   }
 
   kprint("You said: ");

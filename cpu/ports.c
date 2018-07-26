@@ -1,8 +1,8 @@
 #include "ports.h"
 
 // Read a byte from the specified port
-u8 port_byte_in(u16 port) {
-  u8 result;
+uint8_t port_byte_in(uint16_t port) {
+  uint8_t result;
 
   /* "=a" (result)'; set '=' the C variable '(result)' to the value of register
   * e'a'x
@@ -17,18 +17,18 @@ u8 port_byte_in(u16 port) {
 
 // when requesting data from a VGA register, the result is in a different port,
 // which requires us to use port_byte_in to get it
-void port_byte_out(u16 port, u8 data) {
+void port_byte_out(uint16_t port, uint8_t data) {
   __asm__("out %%al, %%dx" : : "a"(data), "d"(port));
 }
 
-u16 port_word_in(u16 port) {
-  u16 result;
+uint16_t port_word_in(uint16_t port) {
+  uint16_t result;
 
   __asm__("in %%dx, %%ax" : "=a"(result) : "d"(port));
 
   return result;
 }
 
-void port_word_out(u16 port, u16 data) {
+void port_word_out(uint16_t port, uint16_t data) {
   __asm__("out %%ax, %%dx" : : "a"(data), "d"(port));
 }
