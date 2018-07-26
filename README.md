@@ -12,3 +12,18 @@ drivers/    drivers to communicate with the VGA port and to write strings
                     to the screen in 32-bit mode
 kernel/     contains the C kernel
 ```
+
+Requirements
+============
+Building this OS requires the following packages:
+- nasm
+- gcc
+- ld
+
+Running
+=======
+In order to run this operating system you should build it with the provided Makefile. And use:
+```bash
+make run
+```
+to launch qemu in the process.

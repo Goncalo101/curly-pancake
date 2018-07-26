@@ -1,24 +1,52 @@
-void memory_copy(char *source, char *dest, int nbytes)
-{
+#include "utils.h"
+
+void memory_copy(char *source, char *dest, int nbytes) {
   while (nbytes > 0) {
     *dest = *source;
-    
+
     source++;
     dest++;
     nbytes--;
   }
 }
 
-void int_to_ascii(int n, char str[])
-{
+void memory_set(u8 *dest, u8 val, u32 len) {
+  u8 *temp = (u8 *)dest;
+  for (; len != 0; len--)
+    *temp++ = val;
+}
+
+void int_to_ascii(int n, char str[]) {
   int sign = n, i = 0;
 
-  if (n < 0) n = -n;
+  if (n < 0)
+    n = -n;
 
   do {
     str[i++] = n % 10 + '0';
   } while ((n /= 10) > 0);
 
-  if (sign < 0) str[i++] = '-';
+  if (sign < 0)
+    str[i++] = '-';
   str[i] = '\0';
+
+  reverse(str);
+}
+
+void reverse(char s[]) {
+  int temp, i, j;
+
+  for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+    temp = s[i];
+    s[i] = s[j];
+    s[j] = temp;
+  }
+}
+
+int strlen(char s[]) {
+  int i = 0;
+  while (s[i] != 0)
+    i++;
+
+  return i;
 }
