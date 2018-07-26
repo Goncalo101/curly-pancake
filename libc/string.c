@@ -1,4 +1,5 @@
 #include "string.h"
+#include "../cpu/types.h"
 
 void int_to_ascii(int n, char str[]) {
   int i, sign;
@@ -51,4 +52,29 @@ int strcmp(char s1[], char s2[]) {
       return 0;
   }
   return s1[i] - s2[i];
+}
+
+void hex_to_ascii(int n, char str[]) {
+  append(str, '0');
+  append(str, 'x');
+  char zeros = 0;
+
+  s32 tmp;
+  int i;
+  for (i = 28; i > 0; i -= 4) {
+    tmp = (n >> i) & 0xF;
+    if (tmp == 0 && zeros == 0)
+      continue;
+    zeros = 1;
+    if (tmp > 0xA)
+      append(str, tmp - 0xA + 'a');
+    else
+      append(str, tmp + '0');
+  }
+
+  tmp = n & 0xF;
+  if (tmp >= 0xA)
+    append(str, tmp - 0xA + 'a');
+  else
+    append(str, tmp + '0');
 }
