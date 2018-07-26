@@ -41,7 +41,7 @@ debug: os-image.bin kernel.elf
 %.bin: %.asm
 	nasm $< -f bin -o $@
 
-format_all:
+format:
 	find cpu -iname *.h -o -iname *.c | xargs clang-format -i
 	find drivers -iname *.h -o -iname *.c | xargs clang-format -i
 	find kernel -iname *.h -o -iname *.c | xargs clang-format -i
