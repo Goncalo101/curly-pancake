@@ -11,7 +11,6 @@ typedef struct {
   u16 low_offset; /* Lower 16 bits of handler function address */
   u16 sel;        /* Kernel segment selector */
   u8 always0;
-
   /* First byte
    * Bit 7: "Interrupt is present"
    * Bits 6-5: Privilege level of caller (0=kernel..3=user)

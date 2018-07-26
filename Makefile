@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
@@ -7,7 +7,7 @@ OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 CC = /usr/local/i386elfgcc/bin/i386-elf-gcc
 GDB = /usr/local/i386elfgcc/bin/i386-elf-gdb
 # -g: Use debugging symbols in gcc
-CFLAGS = -g -fno-pie
+CFLAGS = -g -fno-pie -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror
 
 # First rule is run by default
 os-image.bin: boot/boot.bin kernel.bin
@@ -41,6 +41,12 @@ debug: os-image.bin kernel.elf
 %.bin: %.asm
 	nasm $< -f bin -o $@
 
+format_all:
+	find cpu -iname *.h -o -iname *.c | xargs clang-format -i
+	find drivers -iname *.h -o -iname *.c | xargs clang-format -i
+	find kernel -iname *.h -o -iname *.c | xargs clang-format -i
+	find libc -iname *.h -o -iname *.c | xargs clang-format -i
+
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o cpu/*.o libc/*.o
